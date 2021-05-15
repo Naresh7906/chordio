@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row container-center ">
+{% for song in songs %}
+
+
+<div class="card mr-auto ml-auto" style="width: 15rem;">
+    {% load static %}
+
+    <img class="card-img-top" src="{% static 'images/album art/' %}{{song.3}}"  alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{song.0}}</h5>
+        <p class="card-text">Artist: {{song.2}}</p>  <p>  Album: {{song.1}}</p>
+
+
+
+        <a href="#" style="position:absolute;bottom:0%;right:0%" onclick="document.getElementById('audio').src='{% static '/songs/'%}{{song.4}}.mp3';document.getElementById('audio').autoplay=true" id='play_but'><span class="nav-link material-icons md-dark">play_circle_filled</span>
+
+        </a>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+</div>
+{% endblock %}

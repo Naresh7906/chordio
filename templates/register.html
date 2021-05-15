@@ -1,0 +1,67 @@
+{% extends "login.html" %}
+
+{% block content %}
+{% load static %}
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 d-none d-md-block image-container">
+            <img src="{% static "images/bg1.jpg" %}" alt="...">
+        </div>
+
+        <div class="col-lg-6 col-md-6 form-container">
+            <div class="col-lg-8 col-md-12 col-sm-9 col-xs-12 form-box text-center">
+                <div class="logo mt-5 mb-3">
+                    <img src="{% static 'images/logo.png' %}" width="150px" onclick="window.location.href = 'home'">
+                </div>
+                <div class="heading mb-3">
+                    <h4>Create an account</h4>
+                </div>
+                {% if error == 1  %}
+                
+                <div class="alert alert-danger" role="alert"> error email already exist<br></div> 
+
+                {% endif %}
+
+                <form class="register-form" method="POST" action="SaveData">
+                    {% csrf_token %}
+                    <div class="form-input">
+                        <span><i class="fa fa-user"></i></span>
+                        <input type="text" placeholder="First Name" name="f_name" required>
+                    </div>
+                    <div class="form-input">
+                        <span><i class="fa fa-user"></i></span>
+                        <input type="text" placeholder="Last Name" name="l_name" required>
+                    </div>
+                    <div class="form-input">
+                        <span><i class="fa fa-envelope"></i></span>
+                        <input type="email" placeholder="Email Address" name="email" required>
+                    </div>
+                    <div class="form-input">
+                        <span><i class="fa fa-lock"></i></span>
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 d-flex">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="cb1">
+                                <label class="custom-control-label text-white" for="cb1">I agree all terms & conditions</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-left mb-3">
+                        <button type="submit" class="btn">Register</button>
+                    </div>
+                    
+                    <div class="text-white">Already have an account?
+                        <a href="login" class="login-link">Login here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+{% endblock %}

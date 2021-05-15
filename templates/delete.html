@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+    
+    <div class="form-group row justify-content-center">
+        ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?
+    </div>
+        <br>
+    <div class="form-group row justify-content-center">
+        <form action="delete" method="post">
+            {% csrf_token %}<button type="submit" name="val" class="btn btn-primary">YES</button></form>
+
+        <form action="profile" method="post">
+            {% csrf_token %}<button type="submit" name="val" class="btn btn-primary">NO</button></form>
+    </div>
+       
+
+{% endblock %}

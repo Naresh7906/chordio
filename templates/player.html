@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white bg-secondary fixed-bottom justify-content-center">
+    <br>
+   {% load static %}
+   <button onclick="volume(-1)"><span class="nav-link material-icons md-8 md-dark">volume_down</span></button>
+   <button onclick="previousSong()" id="previous-song"><span class="nav-link material-icons md-16 md-dark">skip_previous</span></button>
+   <audio src="{% static '/music/Mi Gente.mp3'%}" controls id="audio"></audio>
+
+   <!--<button onclick="playpause()" id="play-pause"><span class="nav-link material-icons md-32 md-dark">play_arrow</span></button>-->
+   <button onclick="nextSong()" id="next-song"><span class="nav-link material-icons md-16 md-dark">skip_next</span></button>
+   <button onclick="volume(1)"><span class="nav-link material-icons md-8 md-dark">volume_up</span></button>
+
+
+</nav>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row container-center ">
+{% for album in album %}
+
+
+<div class="card mr-auto ml-auto" style="width: 15rem;">
+    {% load static %}
+
+    <img class="card-img-top" src="{% static 'images/album art/' %}{{album.3}}"  alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{album.0}}</h5>
+        <p class="card-text">Artist: {{album.2}}</p>  <p>  Date: {{album.1}}</p>
+
+    </div>
+</div>
+
+{% endfor %}
+</div>
+</div>
+{% endblock %}

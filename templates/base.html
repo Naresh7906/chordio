@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <link rel="stylesheet" href="{% static "style.css" %}">
+
+    <title>Chord.io</title>
+</head>
+
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+
+<!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    -->
+    
+<style>
+    body{
+        background-image: url("{% static 'images/bg.jpg' %}");
+        background-repeat:repeat;
+      }
+    .material-icons.md-32 {
+        font-size: 32px;
+    }
+
+    .material-icons.md-light {
+        color: rgba(255, 255, 255, .8);
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="home">Chord.io</a>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+            <form class="form-inline my-2 my-lg-0" method="POST" action="search"> {% csrf_token %}
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search_val" id="ser" name="ser">
+                <button class="btn btn-outline-secondary  my-2 my-sm-0" type="submit" ><span
+                        class="material-icons md-light">search</span></button>
+            </form>
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="home"><span
+                            class="nav-link material-icons md-32 md-light">home</span>Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Album"><span class="nav-link material-icons md-32 md-light">queue_music</span>Albums</a>
+                </li>
+
+                <li class="nav-item">
+                    {% if request.session.email %}
+                    <a class="nav-link" href="profile"><span class="nav-link material-icons md-32 md-light">account_box</span>Profile</a>
+                    {% else %}
+                    <a class="nav-link" href="login"><span class="nav-link material-icons md-32 md-light">login</span>Login</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if request.session.email %}
+                    <a class="nav-link" href="logout"><span class="nav-link material-icons md-32 md-light">keyboard_backspace</span>Logout</a>
+                    {% else %}
+                    <a class="nav-link" href="about"><span class="nav-link material-icons md-32 md-light">contact_support</span>About</a>
+                    {% endif %}
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <div class="mt-2">
+        {% block content %}
+
+
+
+        {% endblock %}
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white bg-secondary fixed-bottom justify-content-center">
+        <br>
+       {% load static %}
+       <button onclick="volume(-1)"><span class="nav-link material-icons md-8 md-dark">volume_down</span></button>
+       <button onclick="previousSong()" id="previous-song"><span class="nav-link material-icons md-16 md-dark">skip_previous</span></button>
+       <audio src="" controls id="audio"></audio>
+
+       <!--<button onclick="playpause()" id="play-pause"><span class="nav-link material-icons md-32 md-dark">play_arrow</span></button>-->
+       <button onclick="nextSong()" id="next-song"><span class="nav-link material-icons md-16 md-dark">skip_next</span></button>
+       <button onclick="volume(1)"><span class="nav-link material-icons md-8 md-dark">volume_up</span></button>
+
+
+   </nav>
+</body>
+
+<script>
+    var audio = document.getElementById('audio')
+
+    function playpause() {
+        var button = document.getElementById('play-pause')
+        if (audio.paused) {
+            audio.play()
+            button.innerText = 'Pause'
+        }
+        else {
+            audio.pause()
+            button.innerText = 'Play'
+        }
+    }
+
+    function volume(action) {
+
+        if (action == 1) {
+            //increase
+            audio.volume += 0.1
+        }
+        else {
+            //decrease
+            audio.volume -= 0.1
+        }
+        console.log(audio.volume)
+    }
+
+    audio.ontimeupdate = function () {
+        console.log(1)
+        currentTime = audio.currentTime
+        var date = new Date(null);
+        date.setSeconds(currentTime); // specify value for SECONDS here
+        var result = date.toISOString().substr(11, 8);
+        document.getElementById('start').innerText = result
+        duration = audio.duration
+        var seek = document.getElementById('actualSeek')
+        var totalWidth = document.getElementById('customSeek').style.width;
+        var numericWidth = totalWidth.replace('px', '')
+        numericWidth = parseInt(numericWidth) - 3
+        var newWidth = (currentTime / duration) * numericWidth + "px"
+        seek.style.width = newWidth
+    }
+
+    var seek = document.getElementById('customSeek')
+    seek.onclick = function (e) {
+        var clickPosition = e.pageX
+        var offset = seek.offsetLeft
+        var actualSeekPosition = clickPosition - offset
+        var totalWidth = seek.offsetWidth
+        var percentage = actualSeekPosition / totalWidth
+
+        var duration = audio.duration
+        var seekTime = duration * percentage
+
+
+        audio.currentTime = seekTime
+    }
+
+</script>
+
+</html>
